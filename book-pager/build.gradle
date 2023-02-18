@@ -1,0 +1,47 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdkVersion getProperty("compile.sdk.version") as Integer
+
+    lintOptions {
+        abortOnError false
+    }
+
+    defaultConfig {
+        applicationId 'ru.alex.book_pager'
+        minSdkVersion getProperty("min.sdk.version")
+        targetSdkVersion getProperty("target.sdk.version")
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = getProperty("targetJvm")
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:" + getProperty("kotlin.version")
+
+    implementation "androidx.core:core-ktx:" + getProperty("androidx.core.version")
+    implementation "androidx.appcompat:appcompat:" + getProperty("androidx.appcompat.version")
+    implementation "com.google.android.material:material:" + getProperty("material.version")
+}
