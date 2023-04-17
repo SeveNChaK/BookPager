@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="28dp">
+
+    <LinearLayout
+        android:id="@+id/frame_types_selector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/framing_layout_content_container"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/type_stroke"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#818181"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="16dp"
+            android:text="Обводка"
+            android:textColor="@color/main_text"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/type_rect_corners"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1"
+            android:background="#818181"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="16dp"
+            android:text="Прямоугольные уголки"
+            android:textColor="@color/main_text"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/type_painted_rect_corners"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#818181"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="16dp"
+            android:text="Закрашенные уголки"
+            android:textColor="@color/main_text"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+    <ru.alex.book_pager.framing_layout.CustomFramingLayout
+        android:id="@+id/framing_layout_content_container"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frame_types_selector">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/p3" />
+
+    </ru.alex.book_pager.framing_layout.CustomFramingLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

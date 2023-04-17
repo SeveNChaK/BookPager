@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import ru.alex.book_pager.curl_effect.example.ExampleCurlEffectFragment
+import ru.alex.book_pager.framing_layout.example.ExampleFramingLayoutFragment
 
 class ExampleFragment : Fragment() {
 
@@ -48,6 +49,7 @@ class ExampleFragment : Fragment() {
 		val classFragment: Class<out Fragment>
 	) {
 		CURL_EFFECT("Листалка", ExampleCurlEffectFragment::class.java),
+		FRAMING_LAYOUT("Кастомные рамки", ExampleFramingLayoutFragment::class.java)
 		;
 	}
 }
