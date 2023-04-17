@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background">#FFFFFF</color>
+    <color name="main_text">#000000</color>
 
     <color name="book_page_curl_shadow_start">#80000000</color>
     <color name="book_page_curl_shadow_end">#00000000</color>
