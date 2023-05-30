@@ -17,6 +17,7 @@ object Utils {
 
 	val random = Random(System.currentTimeMillis())
 
+	@JvmStatic
 	@CheckResult
 	fun withTintColorRes(
 		context: Context,

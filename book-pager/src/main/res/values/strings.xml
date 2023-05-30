@@ -9,4 +9,5 @@
     <string name="cover_type">Обложка</string>
     <string name="background_type">Фон страниц</string>
     <string name="frame_type">Оформление фотографий</string>
+    <string name="reorder">Изменить порядок</string>
 </resources>

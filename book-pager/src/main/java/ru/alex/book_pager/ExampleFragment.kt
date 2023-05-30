@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import ru.alex.book_pager.curl_effect.example.ExampleCurlEffectFragment
 import ru.alex.book_pager.design_editor.ExampleDesignEditorFragment
+import ru.alex.book_pager.sort.ExampleSortItemsGridFragment
 
 class ExampleFragment : Fragment() {
 
@@ -56,6 +57,7 @@ class ExampleFragment : Fragment() {
 	) {
 		CURL_EFFECT("Листалка", ExampleCurlEffectFragment::class.java),
 		DESIGN_EDITOR("Конструктор дизайна", ExampleDesignEditorFragment::class.java),
+		REORDER_GRID("Изменение порядка", ExampleSortItemsGridFragment::class.java)
 		;
 	}
 }

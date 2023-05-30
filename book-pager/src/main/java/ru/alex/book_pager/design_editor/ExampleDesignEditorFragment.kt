@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.Fragment
@@ -30,7 +29,6 @@ class ExampleDesignEditorFragment : Fragment() {
 
 	private lateinit var toolbar: Toolbar
 	private lateinit var doneBtn: View
-//	private lateinit var emptyView: SmartEmptyViewAnimated
 	private lateinit var albumTitleView: TextView
 	private lateinit var coverPageView: AnimatedPageView2D
 	private lateinit var coverFramingLayout: CustomFramingLayout
@@ -104,7 +102,7 @@ class ExampleDesignEditorFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-		toolbar = view.findViewById<Toolbar>(R.id.photo_book_design_editor_toolbar).apply {
+		toolbar = view.findViewById<Toolbar>(R.id.design_editor_toolbar).apply {
 			navigationIcon = Utils.withTintColorRes(
 				requireContext(),
 				R.drawable.ic_close_24,
@@ -114,13 +112,11 @@ class ExampleDesignEditorFragment : Fragment() {
 				deliverResult(Result(isSubmit = false, selectedDesign = null))
 			}
 		}
-		(activity as AppCompatActivity?)?.setSupportActionBar(toolbar)
-		doneBtn = toolbar.findViewById<View>(R.id.photo_book_design_editor_toolbar_done_btn).apply {
+		doneBtn = toolbar.findViewById<View>(R.id.design_editor_toolbar_done_btn).apply {
 			setOnClickListener { viewModel.clickSave() }
 		}
 
-//		emptyView = view.findViewById(R.id.photo_book_design_editor_empty_view)
-		albumTitleView = view.findViewById<TextView>(R.id.photo_book_editor_album_title).apply {
+		albumTitleView = view.findViewById<TextView>(R.id.editor_album_title).apply {
 			if (wrappedArgs.albumTitle.isNullOrBlank()) {
 				setText(R.string.album_title)
 			} else {
@@ -131,7 +127,7 @@ class ExampleDesignEditorFragment : Fragment() {
 		coverFramingLayout = view.findViewById<CustomFramingLayout>(R.id.editor_cover_framing_layout).apply {
 			setupRenderer(StubTypes.coverPreviewFrameType.getRenderer())
 		}
-		coverPreviewImage = view.findViewById(R.id.photo_book_design_editor_cover_preview)
+		coverPreviewImage = view.findViewById(R.id.design_editor_cover_preview)
 
 		contentPageView = view.findViewById(R.id.editor_page_content)
 		contentFramingLayout = view.findViewById(R.id.editor_content_framing_layout)
@@ -210,14 +206,8 @@ class ExampleDesignEditorFragment : Fragment() {
 
 	private fun renderViewState(viewState: PhotoBookDesignEditorViewState) {
 		when (viewState) {
-			is PhotoBookDesignEditorViewState.Loading -> {
-//				showViewStub(SmartEmptyViewAnimated.Type.EMPTY, SmartEmptyViewAnimated.State.LOADING)
-				showViewStub()
-			}
-			is PhotoBookDesignEditorViewState.Error -> {
-//				showViewStub(SmartEmptyViewAnimated.Type.ERROR_UNKNOWN)
-				showViewStub()
-			}
+			is PhotoBookDesignEditorViewState.Loading -> showViewStub()
+			is PhotoBookDesignEditorViewState.Error -> showViewStub()
 			is PhotoBookDesignEditorViewState.MainSelector -> {
 				if (viewState.showCover) {
 					prepareCover(viewState.selectedCover)
@@ -266,15 +256,9 @@ class ExampleDesignEditorFragment : Fragment() {
 		contentFramingLayout.requestLayout()
 	}
 
-	private fun showViewStub(
-//		type: SmartEmptyViewAnimated.Type,
-//		state: SmartEmptyViewAnimated.State = SmartEmptyViewAnimated.State.LOADED
-	) {
-//		emptyView.apply {
-//			this.state = state
-//			this.type = type
-//			visible()
-//		}
+	//Реализации заглушек не представлены в данном проекте, так как не имеет значения как они будут сделаны
+	private fun showViewStub() {
+		//Показать заглушку с текстом или иконкой в зависимости от ситуации
 		coverPageView.setupAsHide()
 		contentPageView.gone()
 		mainSelectorGroup.gone()
@@ -282,7 +266,7 @@ class ExampleDesignEditorFragment : Fragment() {
 	}
 
 	private fun hideViewStub() {
-//		emptyView.gone()
+		//Скрыть заглушку
 	}
 
 	private fun hideAllBottomPanels() {

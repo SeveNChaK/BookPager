@@ -44,5 +44,6 @@ dependencies {
 
     implementation "androidx.core:core-ktx:" + getProperty("androidx.core.version")
     implementation "androidx.appcompat:appcompat:" + getProperty("androidx.appcompat.version")
+    implementation "androidx.paging:paging-runtime:" + getProperty("androidx.paging.version")
     implementation "com.google.android.material:material:" + getProperty("material.version")
 }
