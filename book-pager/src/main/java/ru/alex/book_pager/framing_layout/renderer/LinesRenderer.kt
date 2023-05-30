@@ -9,10 +9,7 @@ import android.graphics.RectF
 import ru.alex.book_pager.dpToPixelSize
 import ru.alex.book_pager.dpToPixels
 
-class LinesRenderer(
-    frameType: FrameType.Stroke,
-    shadow: Boolean = false,
-) : BaseFrameRenderer(hasShadow = shadow) {
+class LinesRenderer(frameType: FrameType.Stroke) : BaseFrameRenderer(hasShadow = frameType.shadow) {
 
     private val radius = frameType.radiusDP.dpToPixels()
     private val strokeWidthPx = frameType.widthDP.dpToPixelSize()

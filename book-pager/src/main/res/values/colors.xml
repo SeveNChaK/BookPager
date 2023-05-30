@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background">#FFFFFF</color>
+    <color name="white">#FFF</color>
+    <color name="black_50_transparent">#80000000</color>
+
+    <color name="secondary">#505050</color>
+
+    <color name="background">#F0F0F0</color>
+    <color name="on_surface">#F7F7F7</color>
     <color name="main_text">#000000</color>
+    <color name="orange_main">#FF7700</color>
 
     <color name="book_page_curl_shadow_start">#80000000</color>
     <color name="book_page_curl_shadow_end">#00000000</color>

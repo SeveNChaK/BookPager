@@ -8,7 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import ru.alex.book_pager.curl_effect.example.ExampleCurlEffectFragment
-import ru.alex.book_pager.framing_layout.example.ExampleFramingLayoutFragment
+import ru.alex.book_pager.design_editor.ExampleDesignEditorFragment
 
 class ExampleFragment : Fragment() {
 
@@ -33,15 +33,21 @@ class ExampleFragment : Fragment() {
 			) as TextView
 			itemView.apply {
 				text = item.title
-				setOnClickListener { onItemClick(item) }
+				setOnClickListener {
+					if (item == ExampleItem.DESIGN_EDITOR) {
+						onItemClick(item, ExampleDesignEditorFragment.createArgs())
+					} else {
+						onItemClick(item)
+					}
+				}
 			}
 			examplesContainer.addView(itemView)
 		}
 	}
 
-	private fun onItemClick(item: ExampleItem) {
+	private fun onItemClick(item: ExampleItem, args: Bundle = Bundle()) {
 		val navigatorActivity = requireActivity() as ExampleActivity
-		navigatorActivity.navigateTo(item.classFragment)
+		navigatorActivity.navigateTo(item.classFragment, args)
 	}
 
 	private enum class ExampleItem(
@@ -49,7 +55,7 @@ class ExampleFragment : Fragment() {
 		val classFragment: Class<out Fragment>
 	) {
 		CURL_EFFECT("Листалка", ExampleCurlEffectFragment::class.java),
-		FRAMING_LAYOUT("Кастомные рамки", ExampleFramingLayoutFragment::class.java)
+		DESIGN_EDITOR("Конструктор дизайна", ExampleDesignEditorFragment::class.java),
 		;
 	}
 }

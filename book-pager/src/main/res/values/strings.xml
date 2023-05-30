@@ -2,4 +2,11 @@
 <resources>
     <string name="app_name">BookPager examples</string>
     <string name="curl_effect_example_title">Curl effect</string>
+    <string name="custom_design_settings_main_toolbox_title">Элемент оформления</string>
+    <string name="actionbar_ready">Готово</string>
+    <string name="album_title">Название альбома</string>
+    <string name="custom_design_settings_title">Настройка оформления</string>
+    <string name="cover_type">Обложка</string>
+    <string name="background_type">Фон страниц</string>
+    <string name="frame_type">Оформление фотографий</string>
 </resources>

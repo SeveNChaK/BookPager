@@ -1,30 +1,33 @@
 package ru.alex.book_pager.framing_layout.renderer
 
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Outline
-import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.RectF
+import android.graphics.drawable.Drawable
+import androidx.core.content.ContextCompat
 import kotlin.math.roundToInt
+import ru.alex.book_pager.ApplicationContextProvider
 import ru.alex.book_pager.dpToPixelSize
-import ru.alex.book_pager.dpToPixels
 
-class PathCornersRenderer(
-    private val frameType: FrameType.PathCorners,
-    shadow: Boolean = false,
+class CornersRenderer(
+    frameType: FrameType.Corner,
 ) : BaseFrameRenderer(
-    offsetRect = frameType.offsetDP.let { Rect(it, it, it, it) },
-    hasShadow = shadow
+    offsetRect = frameType.offsetDP.dpToPixelSize().let { Rect(it, it, it, it) },
+    hasShadow = frameType.shadow
 ) {
 
-    private val paint = Paint().apply {
-        color = Color.parseColor(frameType.color)
-        strokeWidth = 3.dpToPixels()
-        style = Paint.Style.FILL_AND_STROKE
-    }
     private val cornerSize = frameType.cornerSizeDP.dpToPixelSize()
     private val cornerBounds = Rect(0, 0, cornerSize, cornerSize)
+
+    private val cornerDrawable = ContextCompat.getDrawable(
+        ApplicationContextProvider.applicationContext,
+        frameType.cornerRes
+    )!!
+
+    init {
+        cornerDrawable.bounds = cornerBounds
+    }
 
     override fun getOutline(contentRect: RectF, viewWidth: Int, viewHeight: Int, outline: Outline) {
         outline.setRect(
@@ -46,14 +49,17 @@ class PathCornersRenderer(
             restore()
         }
 
-        drawCorner(canvas, rotation = 0f)
-        drawCorner(canvas, translationY = cornerSize - width, rotation = 90f)
-        drawCorner(canvas, cornerSize - width, cornerSize - height, rotation = 180f)
-        drawCorner(canvas, translationX = cornerSize - height, rotation = 270f)
+        cornerDrawable.let {
+            drawCorner(canvas, it, rotation = 0f)
+            drawCorner(canvas, it, translationY = cornerSize - width, rotation = 90f)
+            drawCorner(canvas, it, cornerSize - width, cornerSize - height, rotation = 180f)
+            drawCorner(canvas, it, translationX = cornerSize - height, rotation = 270f)
+        }
     }
 
     private fun drawCorner(
         canvas: Canvas,
+        drawable: Drawable,
         translationX: Float = 0f,
         translationY: Float = 0f,
         rotation: Float = 0f
@@ -61,7 +67,7 @@ class PathCornersRenderer(
         canvas.save()
         canvas.rotate(rotation, cornerBounds.centerX().toFloat(), cornerBounds.centerY().toFloat())
         canvas.translate(translationX, translationY)
-        canvas.drawPath(frameType.path, paint)
+        drawable.draw(canvas)
         canvas.restore()
     }
 }

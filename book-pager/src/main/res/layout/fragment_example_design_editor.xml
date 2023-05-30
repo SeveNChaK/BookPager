@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/photo_book_design_editor_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/background"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/custom_design_settings_title"
+        app:titleTextColor="@color/main_text">
+
+        <TextView
+            android:id="@+id/photo_book_design_editor_toolbar_done_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:gravity="center"
+            android:paddingHorizontal="16dp"
+            android:text="@string/actionbar_ready"
+            android:textColor="@color/orange_main"
+            android:textSize="15dp"
+            tools:ignore="SpUsage" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <FrameLayout
+        android:id="@+id/editor_page_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toTopOf="@id/bottom_panel_guideline"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/photo_book_design_editor_toolbar">
+
+        <ru.alex.book_pager.framing_layout.CustomFramingLayout
+            android:id="@+id/editor_content_framing_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity=""
+            android:layout_margin="56dp">
+
+            <ImageView
+                android:id="@+id/editor_content_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                tools:background="#FF0000" />
+
+        </ru.alex.book_pager.framing_layout.CustomFramingLayout>
+
+    </FrameLayout>
+
+    <ru.alex.book_pager.curl_effect.layout.AnimatedPageView2D
+        android:id="@+id/editor_cover_page"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toTopOf="@id/bottom_panel_guideline"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/photo_book_design_editor_toolbar">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/photo_book_editor_album_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="24dp"
+                android:background="@color/black_50_transparent"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp"
+                android:text="@string/album_title"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <ru.alex.book_pager.framing_layout.CustomFramingLayout
+                android:id="@+id/editor_cover_framing_layout"
+                android:layout_width="200dp"
+                android:layout_height="200dp">
+
+                <ImageView
+                    android:id="@+id/photo_book_design_editor_cover_preview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+            </ru.alex.book_pager.framing_layout.CustomFramingLayout>
+
+        </LinearLayout>
+
+    </ru.alex.book_pager.curl_effect.layout.AnimatedPageView2D>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottom_panel_guideline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/main_selector_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="toolbox_title,element_selector_container" />
+
+    <TextView
+        android:id="@+id/toolbox_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/on_surface"
+        android:fontFamily="sans-serif-medium"
+        android:includeFontPadding="false"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp"
+        android:text="@string/custom_design_settings_main_toolbox_title"
+        android:textColor="@color/main_text"
+        android:textSize="17sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bottom_panel_guideline" />
+
+    <LinearLayout
+        android:id="@+id/element_selector_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/on_surface"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbox_title">
+
+        <TextView
+            android:id="@+id/select_cover_btn"
+            style="@style/DesignEditorElementSelectorItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cover_type" />
+
+        <TextView
+            android:id="@+id/select_background_btn"
+            style="@style/DesignEditorElementSelectorItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/background_type" />
+
+        <TextView
+            android:id="@+id/select_frame_btn"
+            style="@style/DesignEditorElementSelectorItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/frame_type" />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/bottom_panel_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="bottom_panel_toolbox,bottom_panel_container" />
+
+    <FrameLayout
+        android:id="@+id/bottom_panel_toolbox"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/on_surface"
+        app:layout_constraintBottom_toBottomOf="@id/toolbox_title"
+        app:layout_constraintTop_toTopOf="@id/bottom_panel_guideline" />
+
+    <FrameLayout
+        android:id="@+id/bottom_panel_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/on_surface"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bottom_panel_toolbox" />
+
+    <!--    TODO-->
+    <!--    <ru.ok.android.ui.custom.emptyview.SmartEmptyViewAnimated-->
+    <!--        android:id="@+id/photo_book_design_editor_empty_view"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:visibility="gone" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

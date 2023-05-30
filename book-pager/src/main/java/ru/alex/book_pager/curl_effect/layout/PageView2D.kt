@@ -38,7 +38,7 @@ import ru.alex.book_pager.dpToPixels
 import ru.alex.book_pager.curl_effect.graphics.FullCurl
 import ru.alex.book_pager.curl_effect.graphics.FullCurlRect
 
-class PageView2D(context: Context, attrs: AttributeSet?) :
+open class PageView2D(context: Context, attrs: AttributeSet?) :
     FrameLayout(context, attrs),
     RecyclerView.SmoothScroller.ScrollVectorProvider {
 
@@ -167,6 +167,7 @@ class PageView2D(context: Context, attrs: AttributeSet?) :
             } else {
                 Bitmap.createBitmap(background.intrinsicWidth, background.intrinsicHeight, Bitmap.Config.ARGB_8888)
             }
+            curlBackgroundBitmap = createCurlBackgroundBitmap(background, left, top, right, bottom)
             super.setBackground(background)
         }
     }
@@ -184,7 +185,7 @@ class PageView2D(context: Context, attrs: AttributeSet?) :
         }
 
         if (sourceBackgroundBitmap != null) {
-            curlBackgroundBitmap = createCurlBackgroundBitmap(left, top, right, bottom)
+            curlBackgroundBitmap = createCurlBackgroundBitmap(background, left, top, right, bottom)
         }
 
         lGradient = LinearGradient(
@@ -198,7 +199,7 @@ class PageView2D(context: Context, attrs: AttributeSet?) :
         move(moveState)
     }
 
-    private fun createCurlBackgroundBitmap(left: Int, top: Int, right: Int, bottom: Int): Bitmap? {
+    private fun createCurlBackgroundBitmap(background: Drawable, left: Int, top: Int, right: Int, bottom: Int): Bitmap? {
         val width = right - left
         val height = bottom - top
         if (width <= 0 || height <= 0) {
@@ -217,7 +218,7 @@ class PageView2D(context: Context, attrs: AttributeSet?) :
 
         val tmpBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         tmpDrawable.apply {
-            bounds = Rect(left, top, right, bottom)
+            bounds = Rect(0, 0, width, height)
             draw(Canvas(tmpBitmap))
         }
         return tmpBitmap

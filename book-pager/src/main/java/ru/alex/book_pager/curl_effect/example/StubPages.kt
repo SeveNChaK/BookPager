@@ -1,33 +1,17 @@
 package ru.alex.book_pager.curl_effect.example
 
-import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
-import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
-import kotlin.random.Random
 import ru.alex.book_pager.R
+import ru.alex.book_pager.Utils
+import ru.alex.book_pager.Utils.random
 
 object StubPages {
 
-	private val random = Random(System.currentTimeMillis())
-
 	fun generatePages(count: Int = 5): List<Page> =
 		(1..count).map {
-			Page(ColorDrawable(generateColor()), generatePicture())
+			Page(ColorDrawable(Utils.generateColor()), generatePicture())
 		}
-
-	@ColorInt
-	private fun generateColor(): Int {
-		val red = random.nextInt(256).toFloat()
-		val green = random.nextInt(256).toFloat()
-		val blue = random.nextInt(256).toFloat()
-		return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-			Color.rgb(red, green, blue)
-		} else {
-			Color.DKGRAY
-		}
-	}
 
 	@DrawableRes
 	private fun generatePicture(count: Int = 4): List<Int> {

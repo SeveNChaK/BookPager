@@ -2,7 +2,26 @@ package ru.alex.book_pager
 
 import android.content.Context
 import android.util.TypedValue
+import android.view.View
 import androidx.annotation.Px
+
+fun View.visible() {
+	if (visibility != View.VISIBLE) {
+		visibility = View.VISIBLE
+	}
+}
+
+fun View.hide() {
+	if (visibility != View.INVISIBLE) {
+		visibility = View.INVISIBLE
+	}
+}
+
+fun View.gone() {
+	if (visibility != View.GONE) {
+		visibility = View.GONE
+	}
+}
 
 @Px
 fun Float.dpToPixels(): Float {
