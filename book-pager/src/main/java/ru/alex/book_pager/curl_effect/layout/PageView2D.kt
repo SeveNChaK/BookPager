@@ -40,7 +40,6 @@ import ru.alex.book_pager.curl_effect.graphics.FullCurlRect
 
 class PageView2D(context: Context, attrs: AttributeSet?) :
     FrameLayout(context, attrs),
-    View.OnLayoutChangeListener,
     RecyclerView.SmoothScroller.ScrollVectorProvider {
 
     /**
@@ -102,10 +101,6 @@ class PageView2D(context: Context, attrs: AttributeSet?) :
     private val debugPointPaint = Paint().apply {
         color = Color.BLACK
         strokeWidth = 20f
-    }
-
-    init {
-        addOnLayoutChangeListener(this)
     }
 
     override fun computeScrollVectorForPosition(targetPosition: Int): PointF {
@@ -176,7 +171,14 @@ class PageView2D(context: Context, attrs: AttributeSet?) :
         }
     }
 
-    override fun onLayoutChange(v: View?, left: Int, top: Int, right: Int, bottom: Int, oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int) {
+    @SuppressLint("DrawAllocation")
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        super.onLayout(changed, left, top, right, bottom)
+
+        if (!changed) {
+            return
+        }
+
         if (background == null) {
             setBackgroundColor(defaultBackgroundColor)
         }
@@ -196,9 +198,12 @@ class PageView2D(context: Context, attrs: AttributeSet?) :
         move(moveState)
     }
 
-    private fun createCurlBackgroundBitmap(left: Int, top: Int, right: Int, bottom: Int): Bitmap {
+    private fun createCurlBackgroundBitmap(left: Int, top: Int, right: Int, bottom: Int): Bitmap? {
         val width = right - left
         val height = bottom - top
+        if (width <= 0 || height <= 0) {
+            return null
+        }
         fullCurl.background.scale.set(1f, 1f)
         var tmpDrawable = background.constantState?.newDrawable()?.mutate()
         if (tmpDrawable == null) {
