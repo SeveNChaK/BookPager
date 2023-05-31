@@ -11,11 +11,11 @@ class DesignEditorViewModel(
 	private val oldDesign: CustomDesign?
 ) : ViewModel() {
 
-	private val _viewState = MutableLiveData<PhotoBookDesignEditorViewState>()
-	val viewStateLD: LiveData<PhotoBookDesignEditorViewState>
+	private val _viewState = MutableLiveData<DesignEditorViewState>()
+	val viewStateLD: LiveData<DesignEditorViewState>
 		get() = _viewState
-	private val _events = SingleLiveData<PhotoBookDesignEditorEvent>()
-	val eventsLD: LiveData<PhotoBookDesignEditorEvent>
+	private val _events = SingleLiveData<DesignEditorEvent>()
+	val eventsLD: LiveData<DesignEditorEvent>
 		get() = _events
 
 	var coverTypes: List<CoverTypeItem>? = null
@@ -27,7 +27,7 @@ class DesignEditorViewModel(
 	private var selectedFrame: FrameTypeItem? = null
 
 	fun loadDesigns() {
-		_viewState.value = PhotoBookDesignEditorViewState.Loading
+		_viewState.value = DesignEditorViewState.Loading
 
 		coverTypes = StubTypes.coverTypes
 		backgroundTypes = StubTypes.backgroundTypes
@@ -46,7 +46,7 @@ class DesignEditorViewModel(
 			isSubmit = true,
 			customDesignSettings
 		)
-		_events.setValue(PhotoBookDesignEditorEvent.SaveDesign(result))
+		_events.setValue(DesignEditorEvent.SaveDesign(result))
 	}
 
 	fun onCoverSelect(coverTypeItem: CoverTypeItem) {
@@ -65,27 +65,27 @@ class DesignEditorViewModel(
 	}
 
 	fun toMainSelector() {
-		_viewState.value = PhotoBookDesignEditorViewState.MainSelector(
+		_viewState.value = DesignEditorViewState.MainSelector(
 			selectedCover!!,
 			selectedBackground!!,
 			selectedFrame!!,
-			showCover = _viewState.value is PhotoBookDesignEditorViewState.CoverSelector
+			showCover = _viewState.value is DesignEditorViewState.CoverSelector
 		)
 	}
 
 	fun toCoverSelector() {
-		_viewState.value = PhotoBookDesignEditorViewState.CoverSelector(selectedCover!!)
+		_viewState.value = DesignEditorViewState.CoverSelector(selectedCover!!)
 	}
 
 	fun toBackgroundSelector() {
-		_viewState.value = PhotoBookDesignEditorViewState.BackgroundSelector(
+		_viewState.value = DesignEditorViewState.BackgroundSelector(
 			selectedBackground!!,
 			selectedFrame!!,
 		)
 	}
 
 	fun toFrameSelector() {
-		_viewState.value = PhotoBookDesignEditorViewState.FrameSelector(
+		_viewState.value = DesignEditorViewState.FrameSelector(
 			selectedBackground!!,
 			selectedFrame!!,
 		)
@@ -97,13 +97,13 @@ class DesignEditorViewModel(
 			selectedBackground = oldDesign?.backgroundType ?: backgroundTypes!![0]
 			selectedFrame = oldDesign?.frameType ?: frameTypes!![0]
 			_events.setValue(
-				PhotoBookDesignEditorEvent.LoadedDesigns(
+				DesignEditorEvent.LoadedDesigns(
 					selectedCover!!, coverTypes!!,
 					selectedBackground!!, backgroundTypes!!,
 					selectedFrame!!, frameTypes!!
 				)
 			)
-			_viewState.value = PhotoBookDesignEditorViewState.MainSelector(
+			_viewState.value = DesignEditorViewState.MainSelector(
 				selectedCover!!,
 				selectedBackground!!,
 				selectedFrame!!,
@@ -119,28 +119,28 @@ class DesignEditorViewModel(
 	}
 }
 
-sealed class PhotoBookDesignEditorViewState {
-	object Loading : PhotoBookDesignEditorViewState()
-	class Error(val errorText: String) : PhotoBookDesignEditorViewState()
+sealed class DesignEditorViewState {
+	object Loading : DesignEditorViewState()
+	class Error(val errorText: String) : DesignEditorViewState()
 
 	class MainSelector(
 		val selectedCover: CoverTypeItem,
 		val selectedBackground: BackgroundTypeItem,
 		val selectedFrame: FrameTypeItem,
 		val showCover: Boolean
-	) : PhotoBookDesignEditorViewState()
-	class CoverSelector(val selectedCover: CoverTypeItem) : PhotoBookDesignEditorViewState()
+	) : DesignEditorViewState()
+	class CoverSelector(val selectedCover: CoverTypeItem) : DesignEditorViewState()
 	class BackgroundSelector(
 		val selectedBackground: BackgroundTypeItem,
 		val selectedFrame: FrameTypeItem,
-	) : PhotoBookDesignEditorViewState()
+	) : DesignEditorViewState()
 	class FrameSelector(
 		val selectedBackground: BackgroundTypeItem,
 		val selectedFrame: FrameTypeItem,
-	) : PhotoBookDesignEditorViewState()
+	) : DesignEditorViewState()
 }
 
-sealed class PhotoBookDesignEditorEvent {
+sealed class DesignEditorEvent {
 	class LoadedDesigns(
 		val selectedCover: CoverTypeItem,
 		val coverTypes: List<CoverTypeItem>,
@@ -148,8 +148,8 @@ sealed class PhotoBookDesignEditorEvent {
 		val backgroundTypes: List<BackgroundTypeItem>,
 		val selectedFrame: FrameTypeItem,
 		val frameTypes: List<FrameTypeItem>
-	) : PhotoBookDesignEditorEvent()
+	) : DesignEditorEvent()
 	class SaveDesign(
 		val result: ExampleDesignEditorFragment.Result
-	) : PhotoBookDesignEditorEvent()
+	) : DesignEditorEvent()
 }

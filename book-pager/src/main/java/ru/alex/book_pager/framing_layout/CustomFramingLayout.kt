@@ -69,14 +69,14 @@ class CustomFramingLayout @JvmOverloads constructor(
         super.onMeasure(targetWidthMeasureSpec, heightMeasureSpec)
     }
 
-    fun setupRenderer(photoBookRenderer: BaseFrameRenderer) {
-        this.frameRenderer = photoBookRenderer
+    fun setupRenderer(renderer: BaseFrameRenderer) {
+        this.frameRenderer = renderer
         elevation = frameRenderer?.getElevation() ?: 0f
         setPadding(
-            photoBookRenderer.getLeftOffset(),
-            photoBookRenderer.getTopOffset(),
-            photoBookRenderer.getRightOffset(),
-            photoBookRenderer.getBottomOffset()
+            renderer.getLeftOffset(),
+            renderer.getTopOffset(),
+            renderer.getRightOffset(),
+            renderer.getBottomOffset()
         )
     }
 }

@@ -192,23 +192,23 @@ class ExampleDesignEditorFragment : Fragment() {
 		bottomPanelGroup.gone()
 	}
 
-	private fun renderEvent(event: PhotoBookDesignEditorEvent) {
+	private fun renderEvent(event: DesignEditorEvent) {
 		when (event) {
-			is PhotoBookDesignEditorEvent.LoadedDesigns -> {
+			is DesignEditorEvent.LoadedDesigns -> {
 				coverTypesAdapter.setItems(event.coverTypes, event.selectedCover)
 				backgroundTypesAdapter.setItems(event.backgroundTypes, event.selectedBackground)
 				frameTypesAdapter.setItems(event.frameTypes, event.selectedFrame)
 
 			}
-			is PhotoBookDesignEditorEvent.SaveDesign -> deliverResult(event.result)
+			is DesignEditorEvent.SaveDesign -> deliverResult(event.result)
 		}
 	}
 
-	private fun renderViewState(viewState: PhotoBookDesignEditorViewState) {
+	private fun renderViewState(viewState: DesignEditorViewState) {
 		when (viewState) {
-			is PhotoBookDesignEditorViewState.Loading -> showViewStub()
-			is PhotoBookDesignEditorViewState.Error -> showViewStub()
-			is PhotoBookDesignEditorViewState.MainSelector -> {
+			is DesignEditorViewState.Loading -> showViewStub()
+			is DesignEditorViewState.Error -> showViewStub()
+			is DesignEditorViewState.MainSelector -> {
 				if (viewState.showCover) {
 					prepareCover(viewState.selectedCover)
 					coverPageView.setupAsVisible()
@@ -221,21 +221,21 @@ class ExampleDesignEditorFragment : Fragment() {
 				bottomPanelGroup.gone()
 				hideViewStub()
 			}
-			is PhotoBookDesignEditorViewState.BackgroundSelector -> {
+			is DesignEditorViewState.BackgroundSelector -> {
 				preparePage(viewState.selectedBackground, viewState.selectedFrame)
 				prepareBackgroundBottomPanel()
 				hideViewStub()
 				coverPageView.hidePage()
 				contentPageView.visible()
 			}
-			is PhotoBookDesignEditorViewState.CoverSelector -> {
+			is DesignEditorViewState.CoverSelector -> {
 				prepareCover(viewState.selectedCover)
 				prepareCoverBottomPanel()
 				hideViewStub()
 				coverPageView.showPage()
 				contentPageView.visible()
 			}
-			is PhotoBookDesignEditorViewState.FrameSelector -> {
+			is DesignEditorViewState.FrameSelector -> {
 				preparePage(viewState.selectedBackground, viewState.selectedFrame)
 				prepareFrameBottomPanel()
 				hideViewStub()
